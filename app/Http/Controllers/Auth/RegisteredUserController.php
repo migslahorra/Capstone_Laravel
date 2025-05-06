@@ -32,7 +32,6 @@ class RegisteredUserController extends Controller
         // Validate the registration form input
         $validatedData = $request->validate([
             'role' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -40,7 +39,6 @@ class RegisteredUserController extends Controller
         // Create the new user instance
         $user = User::create([
             'role' => $validatedData['role'],
-            'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
