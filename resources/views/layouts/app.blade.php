@@ -41,6 +41,7 @@
             .fa-envelope {
                 margin-right: 10px;
             }
+            
         </style>
     </head>
     <body class="font-sans antialiased">

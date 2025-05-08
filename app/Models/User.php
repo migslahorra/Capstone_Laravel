@@ -52,4 +52,8 @@ class User extends Authenticatable implements MustVerifyEmail
     return auth()->user()->is_Buyer ? '/dashboard' : '/home';
     }
 
+    public function profile() {
+        return $this->hasOne(UserProfile::class);
+    }
+
 }

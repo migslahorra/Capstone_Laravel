@@ -16,20 +16,20 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('listing')" :active="request()->routeIs('listing')">
-                    <i class="fas fa-list"></i>{{ __('Land Listing') }}
-                    </x-nav-link>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('map')" :active="request()->routeIs('map')">
-                    <i class="fas fa-map"></i>{{ __('Map') }}
+                    <x-nav-link :href="route('properties')" :active="request()->routeIs('properties')">
+                    <i class="fas fa-list"></i>{{ __('Properties') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('saved_properties')" :active="request()->routeIs('saved_properties')">
                     <i class="fas fa-bookmark"></i>{{ __('Saved Properties') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('map')" :active="request()->routeIs('map')">
+                    <i class="fas fa-map"></i>{{ __('Map') }}
                     </x-nav-link>
                 </div>
 
@@ -51,7 +51,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ Auth::user()->email }}</div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -61,9 +61,18 @@
                         </button>
                     </x-slot>
 
+                    
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                        <i class="fa-solid fa-user"></i> {{ __('Profile') }} 
+                        <i class="fa-solid fa-user"></i> {{ __('Profile Settings') }} 
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('profile.edit')">
+                        <i class="fa-solid fa-user"></i> {{ __('View Profile') }} 
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('profile.edit')">
+                        <i class="fas fa-cogs"></i> {{ __('Preferences') }} 
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -126,3 +135,5 @@
         </div>
     </div>
 </nav>
+
+

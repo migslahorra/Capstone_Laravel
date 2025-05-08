@@ -4,6 +4,7 @@
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserProfileController;
 
 // Import the necessary classes
 Route::get('/', function () {
@@ -15,10 +16,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard'); // Authenticated users only
 
-// Listing Page //
-Route::get('/listing', function () {
-    return view('listing');
-})->middleware(['auth'])->name('listing'); // Authenticated users only
+// properties Page //
+Route::get('/properties', function () {
+    return view('properties');
+})->middleware(['auth'])->name('properties'); // Authenticated users only
 
 // Map Page //
 Route::get('/map', function () {
@@ -67,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // This is for user profile //
+    Route::patch('/user-profiles', [UserProfileController::class, 'update'])->name('user_profiles.update');
 });
 
 require __DIR__.'/auth.php';
