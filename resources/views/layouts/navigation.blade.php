@@ -9,11 +9,16 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @auth
+                    @if (Auth::user()->role === 'Admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     <i class="fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                    @endif
+                @endauth
+
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('properties')" :active="request()->routeIs('properties')">
@@ -21,15 +26,18 @@
                     </x-nav-link>
                 </div>
 
+                @auth
+                    @if (Auth::user()->role === 'Buyer')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('saved_properties')" :active="request()->routeIs('saved_properties')">
                     <i class="fas fa-bookmark"></i>{{ __('Saved Properties') }}
                     </x-nav-link>
                 </div>
-
+                    @endif
+                @endauth
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('map')" :active="request()->routeIs('map')">
-                    <i class="fas fa-map"></i>{{ __('Map') }}
+                    <i class="fas fa-map"></i>{{ __('Map Navigation') }}
                     </x-nav-link>
                 </div>
 
@@ -71,7 +79,7 @@
                         <i class="fa-solid fa-user"></i> {{ __('View Profile') }} 
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('preferences')">
                         <i class="fas fa-cogs"></i> {{ __('Preferences') }} 
                         </x-dropdown-link>
 
@@ -103,11 +111,15 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+        @auth
+            @if (Auth::user()->role === 'Admin')
+                <div class="pt-2 pb-3 space-y-1">
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                </div>
+            @endif
+        @endauth
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -128,7 +140,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Logout') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

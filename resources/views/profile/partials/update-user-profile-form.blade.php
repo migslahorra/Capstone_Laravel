@@ -48,15 +48,6 @@
             <x-input-error class="mt-2" :messages="$errors->get('phonenumber')" />
         </div>
 
-        <!-- Bio -->
-        <div>
-            <x-input-label for="bio" :value="__('Bio')" />
-            <textarea id="bio" name="bio" rows="4" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-md shadow-sm focus:ring focus:ring-indigo-500">
-                {{ old('bio', $user->profile->bio ?? '') }}
-            </textarea>
-            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
-        </div>
-
         <!-- Image Upload -->
         <div>
             <x-input-label for="profile_image" :value="__('Profile Image')" />
@@ -66,8 +57,15 @@
 
         <!-- Image Preview -->
         <div>
-            <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 300px; display: none; margin-top: 1rem;" />
+            <img
+                id="imagePreview"
+                src="{{ $user->profile->profile_picture ? asset('storage/' . $user->profile->profile_picture) : '#' }}"
+                alt="Image Preview"
+                style="max-width: 300px; margin-top: 1rem; {{ $user->profile->profile_picture ? '' : 'display: none;' }}"
+            />
         </div>
+
+
 
         <!-- Submit -->
         <div class="flex items-center gap-4">
@@ -87,7 +85,7 @@
 
     <!-- Image Preview Script -->
     <script>
-        document.getElementById('image').addEventListener('change', function(event) {
+        document.getElementById('profile_image').addEventListener('change', function(event) {
             const file = event.target.files[0];
             const preview = document.getElementById('imagePreview');
 

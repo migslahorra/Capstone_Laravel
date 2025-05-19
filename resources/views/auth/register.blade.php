@@ -1,5 +1,7 @@
+@include('layouts.web-nav')
+
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" style="top: 0;">
         @csrf
 
         <!-- Role -->
@@ -59,4 +61,9 @@
             </x-primary-button>
         </div>
     </form>
+
 </x-guest-layout>
+
+<footer style="position: fixed; bottom: 15px; width: 100%; text-align: center; color: white;">
+        <p>&copy; 2025 Landseek: A Digital Marketplace for Land Hunting. All Rights Reserved.</p>
+    </footer>

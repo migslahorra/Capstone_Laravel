@@ -4,6 +4,9 @@
         justify-content: space-between;
     }
 </style>
+<!-- Include Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -11,42 +14,56 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-auto">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <b>
-                    {{ __("You're logged in as " . ucfirst(optional(Auth::user()->profile)->firstname)) }}
-                </b><br>
-                Welcome Back {{ ucfirst(Auth::user()->role) }}!
-            </div>
-        </div>
-    </div>
-</div>
-
-
-    <! -- Buyer Dashboard (Can only be displayed if logged in user is a buyer) -->
+    <! -- Seller Dashboard (Can only be displayed if logged in user is a seller) -->
     @auth
-        @if (Auth::user()->role === 'Buyer')
+        @if (Auth::user()->role === 'Seller')
             <div class="recent-activity">
-                <div class="buyer-recent-activity">
-                    <h2>Recent Activity</h2>
+                <div class="seller-recent-activity">
+                    <h2><i class="fa-solid fa-clock"></i> Recent Activity</h2>
                     <ul>
-                        {{-- List buyer's recent activities here --}}
+                        
                     </ul>
                 </div>
             </div>
         @endif
     @endauth
 
-    <! -- Seller Dashboard (Can only be displayed if logged in user is a seller) -->
+    <! -- Buyer Dashboard (Can only be displayed if logged in user is a buyer) -->
     @auth
-        @if (Auth::user()->role === 'Seller')
+        @if (Auth::user()->role === 'Buyer')
+            <div class="recent-activity">
+                <div class="buyer-recent-activity">
+                    <h2 style="color: white; margin: 5%; background-color: #1f2937; padding: 20px; width: 200px; border-radius: 10px;"><i class="fa-solid fa-clock" style="margin-right: 10px"></i> Recent Activity</h2>
+                    <ul>
+                        
+                    </ul>
+                </div>
+            </div>
+        @endif
+    @endauth
+
+    <! -- Buyer Dashboard (Can only be displayed if logged in user is a buyer) -->
+    @auth
+        @if (Auth::user()->role === 'Buyer')
+            <div class="recent-activity">
+                <div class="buyer-recent-activity">
+                    <h2 style="color: white; margin: 5%; background-color: #1f2937; padding: 20px; width: 300px; border-radius: 10px;"><i class="fa-solid fa-eye" style="margin-right: 10px;"></i> Recently  Viewed Properties</h2>
+                    <ul>
+                        
+                    </ul>
+                </div>
+            </div>
+        @endif
+    @endauth
+
+    <! -- Buyer Dashboard (Can only be displayed if logged in user is a Buyer and Seller) -->
+    @auth
+        @if (Auth::user()->role === 'Buyer and Seller')
             <div class="recent-activity">
                 <div class="seller-recent-activity">
-                    <h2>Recent Activity</h2>
+                    <h2><i class="fa-solid fa-clock"></i> Recent Activity</h2>
                     <ul>
-                        {{-- List seller's recent activities here --}}
+                        
                     </ul>
                 </div>
             </div>

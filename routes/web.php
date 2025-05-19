@@ -5,11 +5,24 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\PropertyController;
 
 // Import the necessary classes
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home'); // Home page
+})->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contacts', function () {
+    return view('contacts');
+})->name('contacts');
+
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
 
 // Registration Routes //
 Route::get('/dashboard', function () {
@@ -31,15 +44,24 @@ Route::get('/saved_properties', function () {
     return view('saved_properties');
 })->middleware(['auth'])->name('saved_properties'); // Authenticated users only
 
-// Saved Properties Page //
+// Notifications Page //
 Route::get('/notifications', function () {
     return view('notifications');
 })->middleware(['auth'])->name('notifications'); // Authenticated users only
 
-// Saved Properties Page //
+// Messages Page //
 Route::get('/messages', function () {
     return view('messages');
 })->middleware(['auth'])->name('messages'); // Authenticated users only
+
+// Preferences Page //
+Route::get('/preferences', function () {
+    return view('preferences');
+})->middleware(['auth'])->name('preferences'); // Authenticated users only
+
+Route::get('/upload-property-form', function () {
+    return view('upload-property-form');
+})->middleware(['auth'])->name('upload-property'); // Authenticated users only
 
 // Verification of email //
 Route::get('/verify-email', function () {
@@ -71,6 +93,14 @@ Route::middleware('auth')->group(function () {
 
     // This is for user profile //
     Route::patch('/user-profiles', [UserProfileController::class, 'update'])->name('user_profiles.update');
+
+    // This is for the upload property form //
+    Route::get('/upload-property', [PropertyController::class, 'create'])->name('upload.property.form');
+    Route::post('/upload-property', [PropertyController::class, 'store'])->name('upload.property.store');
+
+    Route::get('/map', function () {
+    return view('map'); // Make sure resources/views/map.blade.php exists
+    })->name('map');
 });
 
 require __DIR__.'/auth.php';

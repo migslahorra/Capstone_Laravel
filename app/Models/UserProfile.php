@@ -17,7 +17,6 @@ class UserProfile extends Model
         'lastname',
         'suffix',
         'phonenumber',
-        'bio',
         'profile_image',
     ];
 

@@ -12,7 +12,7 @@
     <title>Legazpi City Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {{-- Leaflet CSS --}}
+    {{-- Leaaflet CSS --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     
     <style>

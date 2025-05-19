@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -11,52 +11,42 @@ class UserProfileController extends Controller
 {
     public function update(Request $request)
     {
-        // Get the authenticated user
         $user = Auth::user();
 
-        // Validate the input data
+        // Validate form input
         $validated = $request->validate([
-            'firstname'     => 'required|string|max:255',
-            'middlename'    => 'nullable|string|max:255',
-            'lastname'      => 'required|string|max:255',
-            'suffix'        => 'nullable|string|max:10',
-            'phonenumber'   => 'required|string|max:20',
-            'bio'           => 'nullable|string|max:1000',
-            'profile_picture' => 'nullable|image|max:2048', // Image validation
+            'firstname'       => 'required|string|max:255',
+            'middlename'      => 'nullable|string|max:255',
+            'lastname'        => 'required|string|max:255',
+            'suffix'          => 'nullable|string|max:10',
+            'phonenumber'     => 'required|string|max:20',
+            'profile_image'   => 'nullable|image|mimes:jpeg,jpg,png|max:2048', // Match field name from form
         ]);
 
-        // Get or create the user_profile record
         $profile = UserProfile::firstOrNew(['user_id' => $user->id]);
 
-        // Handle profile image upload if exists
-        if ($request->hasFile('profile_picture')) {
-            // Store the new image
-            $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
-
-            // Delete old profile image if exists
+        // Handle profile image upload
+        if ($request->hasFile('profile_image')) {
+            // Delete old image if it exists
             if ($profile->profile_picture) {
                 Storage::disk('public')->delete($profile->profile_picture);
             }
 
-            // Save the new image path
+            // Store new image
+            $imagePath = $request->file('profile_image')->store('profile_pictures', 'public');
             $profile->profile_picture = $imagePath;
         }
 
-        // Update other profile fields
-        $profile->firstname   = $validated['firstname'];
-        $profile->middlename  = $validated['middlename'] ?? null;
-        $profile->lastname    = $validated['lastname'];
-        $profile->suffix      = $validated['suffix'] ?? null;
-        $profile->phonenumber = $validated['phonenumber'];
-        $profile->bio         = $validated['bio'] ?? null;
+        // Assign validated fields
+        $profile->firstname     = $validated['firstname'];
+        $profile->middlename    = $validated['middlename'] ?? null;
+        $profile->lastname      = $validated['lastname'];
+        $profile->suffix        = $validated['suffix'] ?? null;
+        $profile->phonenumber   = $validated['phonenumber'];
+        $profile->user_id       = $user->id;
 
-        // Ensure user_id is set
-        $profile->user_id = $user->id;
-        
-        // Save the profile to the database
         $profile->save();
 
-        // Return with a success message
         return redirect()->back()->with('status', 'user_profiles-updated');
     }
 }
