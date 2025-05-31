@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\MapController;
 
 // Import the necessary classes
 Route::get('/', function () {
@@ -95,12 +96,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/user-profiles', [UserProfileController::class, 'update'])->name('user_profiles.update');
 
     // This is for the upload property form //
+    Route::get('/map', [MapController::class, 'index'])->name('map');
     Route::get('/upload-property', [PropertyController::class, 'create'])->name('upload.property.form');
     Route::post('/upload-property', [PropertyController::class, 'store'])->name('upload.property.store');
 
-    Route::get('/map', function () {
-    return view('map'); // Make sure resources/views/map.blade.php exists
-    })->name('map');
+    // This is for the map //
+    Route::get('/map', [PropertyController::class, 'showMap'])->name('map');
+
+    // This is for the properties //
+    Route::get('/properties', [PropertyController::class, 'index'])->name('properties');
 });
 
 require __DIR__.'/auth.php';

@@ -130,8 +130,13 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                    <i class="fa-solid fa-user"></i>{{ __('Profile') }}
+            </x-responsive-nav-link>
+
+            <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('properties')">
+                    <i class="fa-solid fa-list"></i>{{ __('Properties') }}
+            </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
@@ -140,7 +145,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Logout') }}
+                        <i class="fa-solid fa-sign-out-alt"></i>{{ __('Logout') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
